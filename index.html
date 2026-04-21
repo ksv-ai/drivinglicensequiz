@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCQ Quiz — Nepal SEE</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f4f0;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --border: #ddd9d0;
+  --border-light: #eeebe4;
+  --accent: #1a56a0;
+  --accent-light: #e8f0fb;
+  --green: #1a7a4a;
+  --green-light: #e6f4ec;
+  --red: #b52b2b;
+  --red-light: #faeaea;
+  --amber: #a05c0a;
+  --amber-light: #fef3e2;
+  --text: #1c1c1c;
+  --text-secondary: #5a5a5a;
+  --text-muted: #8a8a8a;
+  --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+body.dark-mode {
+  --bg: #121212;
+  --surface: #1e1e1e;
+  --card: #1e1e1e;
+  --border: #333333;
+  --border-light: #2a2a2a;
+  --accent: #4a90e2;
+  --accent-light: #1a2a3a;
+  --green: #4caf50;
+  --green-light: #1e2e1e;
+  --red: #f44336;
+  --red-light: #2e1e1e;
+  --amber: #ff9800;
+  --amber-light: #2e261e;
+  --text: #e0e0e0;
+  --text-secondary: #aaaaaa;
+  --text-muted: #777777;
+  --shadow: 0 4px 15px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+/* ── Top Controls ── */
+.top-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.control-btn {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.control-btn:hover {
+  background: var(--border-light);
+  border-color: var(--accent);
+}
+
+.site-header {
+  text-align: center;
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid var(--border);
+}
+.site-header h1 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+.site-header p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.subject-tag {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid #c5d8f5;
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Section headings ── */
+.section-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* ── Import Panel ── */
+.import-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.import-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.import-tab {
+  flex: 1;
+  padding: 12px 16px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.18s;
+  letter-spacing: 0.3px;
+}
+.import-tab:hover { color: var(--text); }
+.import-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: var(--surface);
+}
+.import-body { padding: 22px; }
+
+/* JSON Import */
+.drop-zone {
+  border: 1.5px dashed var(--border);
+  border-radius: 8px;
+  padding: 20px 16px;
+  text-align: center;
+  background: var(--bg);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+}
+.drop-zone input[type=file] {
+  position: absolute; inset: 0;
+  opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.drop-zone:hover, .drop-zone.drag-over {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+.drop-zone-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.drop-zone-sub { font-size: 13px; color: var(--text-muted); }
+
+details.format-hint {
+  margin-top: 14px;
+  border: 1px solid var(--border-light);
+  border-radius: 7px;
+  overflow: hidden;
+}
+details.format-hint summary {
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  background: var(--accent-light);
+  list-style: none;
+  user-select: none;
+}
+details.format-hint summary::-webkit-details-marker { display: none; }
+details.format-hint pre {
+  padding: 14px;
+  background: #f8f8f6;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #444;
+  overflow-x: auto;
+  border-top: 1px solid var(--border-light);
+}
+
+/* Text Import */
+.text-area-wrap { position: relative; }
+textarea.text-import {
+  width: 100%;
+  min-height: 200px;
+  padding: 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  resize: vertical;
+  transition: all 0.2s;
+}
+
+textarea.text-import:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+details.text-format-hint, details.excel-format-hint {
+  margin-top: 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 7px;
+  overflow: hidden;
+}
+summary.hint-summary {
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  background: var(--accent-light);
+  list-style: none;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+summary.hint-summary::after {
+  content: '▼';
+  font-size: 10px;
+  transition: transform 0.2s;
+}
+details[open] summary.hint-summary::after {
+  transform: rotate(180deg);
+}
+
+.hint-body {
+  padding: 16px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  background: var(--surface);
+  border-top: 1px solid var(--border-light);
+}
+.hint-body pre {
+  margin-top: 12px;
+  padding: 14px;
+  background: var(--bg);
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--text);
+  overflow-x: auto;
+  border: 1px solid var(--border-light);
+}
+.hint-body strong { color: var(--text); }
+
+
+/* Status message */
+.status-msg {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 500;
+  display: none;
+}
+.status-msg.ok { background: var(--green-light); color: var(--green); border: 1px solid #b3dfc6; display: block; }
+.status-msg.err { background: var(--red-light); color: var(--red); border: 1px solid #f0bcbc; display: block; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 24px;
+  border-radius: 7px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  letter-spacing: 0.2px;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(26,86,160,0.2);
+}
+.btn-primary:hover { background: #154a8a; box-shadow: 0 4px 14px rgba(26,86,160,0.3); }
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+.btn-outline:hover { background: var(--accent-light); }
+.btn-ghost {
+  background: var(--bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: var(--border-light); }
+.btn:active { transform: scale(0.97); }
+.btn-sm { padding: 8px 16px; font-size: 13px; }
+.btn-success { background: var(--green); color: #fff; }
+
+
+/* Settings bar */
+.settings-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow);
+}
+.settings-bar label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex; align-items: center; gap: 8px;
+}
+select.round-select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+}
+select.round-select:focus { outline: none; border-color: var(--accent); }
+.info-chip {
+  font-size: 13px;
+  color: var(--text-muted);
+  background: var(--border-light);
+  border-radius: 20px;
+  padding: 4px 12px;
+}
+
+/* ── Start Card ── */
+.start-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 32px 28px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+.start-card h2 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.start-card p { color: var(--text-secondary); font-size: 15px; margin-bottom: 24px; line-height: 1.7; }
+.feature-row {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.feature-chip {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 14px;
+}
+
+/* ── Quiz Screen ── */
+#screen-quiz { display: none; }
+
+/* Progress */
+.progress-section { margin-bottom: 22px; }
+.progress-top {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.progress-bar {
+  height: 5px;
+  background: var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+
+/* Timer bar */
+.timer-bar {
+  height: 3px;
+  background: var(--border-light);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.timer-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 100px;
+  transition: width 1s linear, background 0.5s;
+  width: 100%;
+}
+.timer-fill.warn { background: var(--amber); }
+.timer-fill.danger { background: var(--red); }
+
+/* Question dots */
+.q-dots { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 18px; }
+.q-dot {
+  width: 26px; height: 26px;
+  border-radius: 5px;
+  background: var(--border-light);
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+.q-dot.active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+.q-dot.correct { background: var(--green-light); color: var(--green); border-color: #9fd0b7; }
+.q-dot.wrong { background: var(--red-light); color: var(--red); border-color: #f0bcbc; }
+
+/* Question Card */
+.question-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+  padding: 26px 26px 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  animation: slideIn 0.28s ease;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.q-meta {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.question-text {
+  font-family: 'Source Serif 4', serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* Options */
+.options-list { display: flex; flex-direction: column; gap: 10px; }
+.option-btn {
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  color: var(--text);
+  cursor: pointer;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  transition: all 0.15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.option-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+.option-letter {
+  width: 28px; height: 28px;
+  background: var(--border-light);
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: all 0.15s;
+}
+.option-text { flex: 1; }
+
+/* Answer states */
+.option-btn.correct-ans {
+  border-color: #9fd0b7;
+  background: var(--green-light);
+}
+.option-btn.correct-ans .option-letter {
+  background: var(--green);
+  color: #fff;
+}
+.option-btn.wrong-ans {
+  border-color: #f0bcbc;
+  background: var(--red-light);
+}
+.option-btn.wrong-ans .option-letter {
+  background: var(--red);
+  color: #fff;
+}
+.option-btn.revealed {
+  border-color: #9fd0b7;
+  background: var(--green-light);
+}
+.option-btn.revealed .option-letter {
+  background: var(--green);
+  color: #fff;
+}
+.option-btn:disabled { cursor: default; }
+
+/* Feedback strip */
+.feedback-strip {
+  padding: 12px 16px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 14px;
+  display: none;
+  border-left: 4px solid;
+  animation: fadeIn 0.2s ease;
+}
+.feedback-strip.correct {
+  background: var(--green-light);
+  border-left-color: var(--green);
+  color: #155733;
+  display: block;
+}
+.feedback-strip.wrong {
+  background: var(--red-light);
+  border-left-color: var(--red);
+  color: #8b1f1f;
+  display: block;
+}
+.feedback-strip.timeout {
+  background: var(--amber-light);
+  border-left-color: var(--amber);
+  color: #7a440a;
+  display: block;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── Result Screen ── */
+#screen-result { display: none; animation: fadeIn 0.4s ease; }
+
+.result-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 36px 28px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 20px;
+}
+.result-score-ring {
+  width: 130px; height: 130px;
+  margin: 0 auto 24px;
+  position: relative;
+}
+.result-score-ring svg { transform: rotate(-90deg); }
+.result-score-ring circle.bg { stroke: var(--border); }
+.result-score-ring circle.fill {
+  stroke-dasharray: 377;
+  stroke-dashoffset: 377;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.2s ease;
+}
+.score-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.score-pct {
+  font-family: 'Source Serif 4', serif;
+  font-size: 32px; font-weight: 700;
+}
+.score-lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.result-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.5rem; font-weight: 700;
+  margin-bottom: 6px;
+}
+.result-sub { color: var(--text-muted); font-size: 15px; margin-bottom: 24px; }
+
+.stats-row {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 12px; margin-bottom: 28px;
+}
+.stat-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 10px;
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Source Serif 4', serif;
+  font-size: 26px; font-weight: 700;
+  margin-bottom: 3px;
+}
+.stat-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+.action-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* Review */
+.review-section { margin-top: 20px; }
+.review-section h3 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.review-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+}
+.review-card.r-correct { border-left-color: var(--green); }
+.review-card.r-wrong { border-left-color: var(--red); }
+.review-q-num {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+  font-weight: 700; margin-bottom: 7px;
+}
+.review-card.r-correct .review-q-num { color: var(--green); }
+.review-card.r-wrong .review-q-num { color: var(--red); }
+.review-question { font-size: 14px; font-weight: 600; margin-bottom: 10px; line-height: 1.6; }
+.review-ans {
+  font-size: 13px; padding: 7px 12px;
+  border-radius: 5px; margin-bottom: 5px;
+}
+.review-ans.your-ok { 
+  background: var(--green-light); 
+  color: var(--green); 
+  border: 1px solid var(--green);
+}
+.review-ans.your-bad { 
+  background: var(--red-light); 
+  color: var(--red); 
+  border: 1px solid var(--red);
+}
+.review-ans.hint { 
+  background: var(--accent-light); 
+  color: var(--accent); 
+  border: 1px solid var(--accent);
+}
+
+body.dark-mode .review-ans.your-ok { color: #81c784; }
+body.dark-mode .review-ans.your-bad { color: #e57373; }
+body.dark-mode .review-ans.hint { color: #64b5f6; }
+
+
+/* empty state */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 15px;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.empty-state strong { display: block; font-size: 17px; color: var(--text-secondary); margin-bottom: 6px; font-weight: 600; }
+
+@media (max-width: 600px) {
+  .container { padding: 20px 12px 40px; }
+  .site-header h1 { font-size: 1.8rem; }
+  .top-controls { justify-content: center; width: 100%; }
+  .control-btn { flex: 1; justify-content: center; }
+  .stats-row { grid-template-columns: 1fr; }
+  .action-btns .btn { width: 100%; }
+  .import-tabs { flex-direction: column; }
+  .import-tab { border-bottom: none; border-left: 4px solid transparent; text-align: left; }
+  .import-tab.active { border-left-color: var(--accent); border-bottom-color: transparent; }
+}
+
+@media (max-width: 400px) {
+  .site-header h1 { font-size: 1.5rem; }
+  .site-header p { font-size: 14px; }
+  .question-text { font-size: 15px; }
+  .option-btn { font-size: 13px; padding: 10px 12px; }
+  .option-letter { width: 24px; height: 24px; font-size: 11px; }
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1.5px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+.heart { color: var(--red); margin: 0 4px; }
+</style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+</head>
+
+<body>
+<div class="container">
+
+<!-- Top Controls -->
+  <div class="top-controls">
+    <button class="control-btn" onclick="toggleTheme()" id="themeBtn">
+      <span id="themeBtnIcon">🌙</span> <span id="themeBtnText" data-i18n="theme_dark">Dark Mode</span>
+    </button>
+    <button class="control-btn" onclick="toggleLanguage()" id="langBtn">
+      🌐 <span id="langBtnText">नेपाली</span>
+    </button>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <h1 data-i18n="title">MCQ Quiz Practice</h1>
+    <p data-i18n="subtitle">Nepal SEE — Class 10 All Subjects</p>
+    <div class="subject-tag" id="subjectTag" data-i18n="no_questions">No questions loaded</div>
+  </header>
+
+
+<!-- Import Panel -->
+  <div class="section-label" data-i18n="import_title">Import Questions</div>
+  <div class="import-panel" id="importPanel">
+    <div class="import-tabs">
+      <button class="import-tab active" onclick="switchTab('text')" data-i18n="tab_text">Text / Paste</button>
+      <button class="import-tab" onclick="switchTab('excel')" data-i18n="tab_excel">Excel File</button>
+    </div>
+
+
+    <!-- Text Tab -->
+    <div class="import-body" id="tab-text">
+      <textarea class="text-import" id="textInput" data-i18n-attr="placeholder:paste_placeholder" placeholder="Paste your questions here in any format... (e.g., Question, 4 options, Correct answer)"></textarea>
+      
+      <details class="text-format-hint">
+        <summary class="hint-summary" data-i18n="view_text_format">View text format guide</summary>
+        <div class="hint-body">
+          <p><strong>Format 1 (Comma/Tab separated):</strong> One question per line.</p>
+          <pre>What is the SI unit of pressure?, Newton, Pascal, Joule, Watt, Pascal</pre>
+          
+          <p><strong>Format 2 (Block format):</strong> Questions separated by blank lines.</p>
+          <pre>1. Who wrote Muna Madan?
+A) Laxmi Prasad Devkota
+B) Parijat
+C) BP Koirala
+D) Bhupi Sherchan
+Correct: A</pre>
+          <p>Serial numbers (1., Q1:) are automatically removed.</p>
+        </div>
+      </details>
+      
+      <div style="display:flex; gap:10px; margin-top:14px; align-items:center; flex-wrap: wrap;">
+        <button class="btn btn-primary btn-sm" id="loadTextBtn" onclick="parseTextInput()" data-i18n="load_questions">Load Questions</button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('textInput').value=''" data-i18n="clear">Clear</button>
+      </div>
+      <div class="status-msg" id="textStatus"></div>
+    </div>
+
+    <!-- Excel Tab -->
+    <div class="import-body" id="tab-excel" style="display:none;">
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="excelFile" accept=".xlsx, .xls, .csv" />
+        <div class="drop-zone-title" data-i18n="excel_drop_title">Click to choose an Excel file (.xlsx, .xls, .csv)</div>
+        <div class="drop-zone-sub" data-i18n="excel_drop_sub">or drag and drop here</div>
+      </div>
+      
+      <details class="excel-format-hint">
+        <summary class="hint-summary" data-i18n="view_excel_format">View Excel format</summary>
+        <div class="hint-body">
+          <p>The Excel file should have questions and options organized in columns. No headers required.</p>
+          <pre>Col A: Question text
+Col B: Option 1
+Col C: Option 2
+Col D: Option 3
+Col E: Option 4
+Col F: Correct Answer (Index 0-3 or A-D or Option Text)</pre>
+        </div>
+      </details>
+      <div class="status-msg" id="excelStatus"></div>
+    </div>
+
+  </div>
+
+
+<!-- Settings + Start -->
+    <div id="screen-start">
+    <div class="settings-bar">
+      <label>
+        <span data-i18n="questions_per_round">Questions per round:</span>
+        <select class="round-select" id="numQSelect">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="all">All</option>
+        </select>
+      </label>
+      <label>
+        <span data-i18n="time_limit">Time Limit (per Q):</span>
+        <select class="round-select" id="timerSelect">
+          <option value="0" data-i18n="none">None</option>
+          <option value="15">15s</option>
+          <option value="30" selected>30s</option>
+          <option value="60">60s</option>
+        </select>
+      </label>
+      <span class="info-chip" id="totalChip" data-i18n="no_questions">0 questions loaded</span>
+    </div>
+
+
+    <div class="start-card" id="startCard">
+      <h2 data-i18n="ready_title">Ready to Practice?</h2>
+      <p id="startDesc" data-i18n="ready_desc">Import questions above using an Excel file or by pasting text, then press Start.</p>
+      <div class="feature-row">
+        <span class="feature-chip" data-i18n="feat_timed">Timed per question</span>
+        <span class="feature-chip" data-i18n="feat_feedback">Instant feedback</span>
+        <span class="feature-chip" data-i18n="feat_random">Randomized order</span>
+        <span class="feature-chip" data-i18n="feat_review">Full review at end</span>
+      </div>
+      <button class="btn btn-primary" onclick="startQuiz()" id="startBtn" disabled data-i18n="start_btn">Start Quiz</button>
+    </div>
+  </div>
+
+
+  <!-- Quiz Screen -->
+  <div id="screen-quiz">
+    <div class="timer-bar"><div class="timer-fill" id="timerFill"></div></div>
+    <div class="q-dots" id="qDots"></div>
+    <div class="progress-section">
+      <div class="progress-top">
+        <span id="progressLabel">Question 1 of 5</span>
+        <span id="subjectLabel" style="color:var(--accent); font-weight:600;"></span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="question-card" id="questionCard">
+      <div class="question-text" id="questionText">Loading...</div>
+    </div>
+
+
+    <div class="options-list" id="optionsList"></div>
+    <div class="feedback-strip" id="feedbackStrip"></div>
+  </div>
+
+  <!-- Result Screen -->
+  <div id="screen-result">
+    <div class="result-card">
+      <div class="result-score-ring">
+        <svg width="130" height="130" viewBox="0 0 130 130">
+          <circle class="bg" cx="65" cy="65" r="60" fill="none" stroke-width="9"/>
+          <circle class="fill" id="scoreCircle" cx="65" cy="65" r="60" fill="none" stroke-width="9"/>
+        </svg>
+        <div class="score-center">
+          <div class="score-pct" id="scorePct">0%</div>
+          <div class="score-lbl" data-i18n="score">Score</div>
+        </div>
+      </div>
+      <div class="result-title" id="resultTitle" data-i18n="quiz_complete">Quiz Complete</div>
+      <div class="result-sub" id="resultSub" data-i18n="results_here">Here are your results.</div>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-num" id="sCorrect" style="color:var(--green)">0</div>
+          <div class="stat-lbl" data-i18n="correct">Correct</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="sWrong" style="color:var(--red)">0</div>
+          <div class="stat-lbl" data-i18n="wrong">Wrong</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="sTotal" style="color:var(--accent)">0</div>
+          <div class="stat-lbl" data-i18n="total">Total</div>
+        </div>
+      </div>
+      <div class="action-btns">
+        <button class="btn btn-primary" onclick="startQuiz()" data-i18n="new_round">New Round</button>
+        <button class="btn btn-outline" onclick="showReview()" data-i18n="review_btn">Review Answers</button>
+        <button class="btn btn-ghost" onclick="backToStart()" data-i18n="import_more">Import More</button>
+      </div>
+    </div>
+
+
+    <div class="review-section" id="reviewSection" style="display:none;">
+      <h3>Answer Review</h3>
+      <div id="reviewCards"></div>
+      <div style="text-align:center; margin-top:16px;">
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('reviewSection').style.display='none'">Hide Review</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    Developed with <span class="heart">❤</span> by <strong>Keshav Poudel</strong>
+  </footer>
+
+</div><!-- /container -->
+
+
+<script>
+// ── i18n Data ─────────────────────────────────────────────────────────────────
+
+const i18nData = {
+  en: {
+    theme_dark: "Dark Mode",
+    theme_light: "Light Mode",
+    title: "MCQ Quiz Practice",
+    subtitle: "Nepal SEE — Class 10 All Subjects",
+    no_questions: "No questions loaded",
+    import_title: "Import Questions",
+    tab_excel: "Excel File",
+    tab_text: "Text / Paste",
+    excel_drop_title: "Click to choose an Excel file (.xlsx, .xls, .csv)",
+    excel_drop_sub: "or drag and drop here",
+    view_excel_format: "View Excel format",
+    paste_placeholder: "Paste your questions here in any format... (e.g., Question, 4 options, Correct answer)",
+    view_text_format: "View text format guide",
+    load_questions: "Load Questions",
+    clear: "Clear",
+    questions_per_round: "Questions per round:",
+    ready_title: "Ready to Practice?",
+    ready_desc: "Import questions above using an Excel file or by pasting text, then press Start.",
+    feat_timed: "Timed per question",
+    feat_feedback: "Instant feedback",
+    feat_random: "Randomized order",
+    feat_review: "Full review at end",
+    start_btn: "Start Quiz",
+    question_n_of: "Question {n} of {total}",
+    score: "Score",
+    quiz_complete: "Quiz Complete",
+    results_here: "Here are your results.",
+    correct: "Correct",
+    wrong: "Wrong",
+    total: "Total",
+    review_title: "Answer Review",
+    new_round: "New Round",
+    review_btn: "Review Answers",
+    import_more: "Import More",
+    hide_review: "Hide Review",
+    time_up: "Time's up. Correct answer: ",
+    msg_score: "Score: ",
+    accuracy: "Accuracy: ",
+    time_limit: "Time Limit (per Q):",
+    none: "None",
+    time_taken: "Time taken: {s}s"
+  },
+  ne: {
+
+    theme_dark: "डार्क मोड",
+    theme_light: "लाइट मोड",
+    title: "MCQ क्विज अभ्यास",
+    subtitle: "नेपाल SEE — कक्षा १० सबै विषयहरू",
+    no_questions: "कुनै प्रश्नहरू लोड गरिएको छैन",
+    import_title: "प्रश्नहरू आयात गर्नुहोस्",
+    tab_excel: "एक्सेल फाइल",
+    tab_text: "टेक्स्ट / पेस्ट",
+    excel_drop_title: "एक्सेल फाइल चयन गर्न यहाँ क्लिक गर्नुहोस् (.xlsx, .xls, .csv)",
+    excel_drop_sub: "वा यहाँ तानेर ल्याउनुहोस्",
+    view_excel_format: "एक्सेल ढाँचा हेर्नुहोस्",
+    paste_placeholder: "यहाँ कुनै पनि ढाँचामा प्रश्नहरू पेस्ट गर्नुहोस्... (जस्तै: प्रश्न, ४ विकल्प, सही उत्तर)",
+    view_text_format: "टेक्स्ट ढाँचा मार्गदर्शक हेर्नुहोस्",
+    load_questions: "प्रश्नहरू लोड गर्नुहोस्",
+    clear: "सफा गर्नुहोस्",
+    questions_per_round: "प्रति राउन्ड प्रश्न संख्या:",
+    ready_title: "अभ्यासको लागि तयार हुनुहुन्छ?",
+    ready_desc: "माथि एक्सेल फाइल वा टेक्स्ट टाँसेर प्रश्नहरू आयात गर्नुहोस्, त्यसपछि सुरु गर्नुहोस् मा थिच्नुहोस्।",
+    feat_timed: "समयबद्ध प्रश्न",
+    feat_feedback: "तुरुन्त प्रतिक्रिया",
+    feat_random: "क्रमरहित क्रम",
+    feat_review: "अन्तमा पूर्ण पुनरावलोकन",
+    start_btn: "क्विज सुरु गर्नुहोस्",
+    question_n_of: "प्रश्न {n} / {total}",
+    score: "प्राप्तांक",
+    quiz_complete: "क्विज समाप्त",
+    results_here: "तपाईंको नतिजाहरू यहाँ छन्।",
+    correct: "सही",
+    wrong: "गलत",
+    total: "जम्मा",
+    review_title: "उत्तर पुनरावलोकन",
+    new_round: "नयाँ राउन्ड",
+    review_btn: "उत्तरहरू हेर्नुहोस्",
+    import_more: "थप आयात गर्नुहोस्",
+    hide_review: "पुनरावलोकन लुकाउनुहोस्",
+    time_up: "समय सकियो। सही उत्तर: ",
+    msg_score: "प्राप्तांक: ",
+    accuracy: "शुद्धता: ",
+    time_limit: "समय सीमा (प्रति प्रश्न):",
+    none: "छैन",
+    time_taken: "लागेको समय: {s}s"
+  }
+};
+
+
+// ── State ────────────────────────────────────────────────────────────────────
+let currentLang = 'en';
+let questionBank = [];
+let activeQuestions = [];
+let currentIndex = 0;
+let userAnswers = [];
+let score = 0;
+let timerInterval = null;
+let timerLimit = 30; // 0 means no timer
+let timeLeft = 30;
+let qStartTime = 0;
+let answered = false;
+let roundSize = 5;
+
+
+// ── i18n Logic ────────────────────────────────────────────────────────────────
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'ne' : 'en';
+  updateUI();
+  const langBtnText = document.getElementById('langBtnText');
+  langBtnText.textContent = currentLang === 'en' ? 'नेपाली' : 'English';
+}
+
+function updateUI() {
+  const lang = i18nData[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (lang[key]) el.textContent = lang[key];
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    const attrPair = el.getAttribute('data-i18n-attr').split(':');
+    const attr = attrPair[0];
+    const key = attrPair[1];
+    if (lang[key]) el.setAttribute(attr, lang[key]);
+  });
+  
+  // Dynamic updates
+  if (questionBank.length > 0) {
+    const text = (currentLang === 'ne' ? ' जम्मा प्रश्नहरू लोड गरियो' : ' questions loaded');
+    document.getElementById('totalChip').textContent = questionBank.length + text;
+    
+    if (document.getElementById('screen-quiz').style.display === 'block') {
+      const qText = lang.question_n_of.replace('{n}', currentIndex + 1).replace('{total}', activeQuestions.length);
+      document.getElementById('progressLabel').textContent = qText;
+    }
+  }
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  document.getElementById('themeBtnIcon').textContent = isDark ? '☀️' : '🌙';
+  document.getElementById('themeBtnText').setAttribute('data-i18n', isDark ? 'theme_light' : 'theme_dark');
+  
+  // Re-run updateUI to handle the text change for the button properly
+  const lang = i18nData[currentLang];
+  const key = isDark ? 'theme_light' : 'theme_dark';
+  document.getElementById('themeBtnText').textContent = lang[key];
+}
+
+// ── Tab switching ─────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.import-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-excel').style.display = 'none';
+  document.getElementById('tab-text').style.display = 'none';
+  
+  const buttons = document.querySelectorAll('.import-tab');
+  if (tab === 'text') {
+    buttons[0].classList.add('active');
+    document.getElementById('tab-text').style.display = 'block';
+  } else {
+    buttons[1].classList.add('active');
+    document.getElementById('tab-excel').style.display = 'block';
+  }
+}
+
+
+// ── Excel Import ──────────────────────────────────────────────────────────────
+const dropZone = document.getElementById('dropZone');
+const excelFile = document.getElementById('excelFile');
+
+if (dropZone) {
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault(); dropZone.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) processExcelFile(e.dataTransfer.files[0]);
+  });
+}
+if (excelFile) {
+  excelFile.addEventListener('change', e => { if (e.target.files[0]) processExcelFile(e.target.files[0]); });
+}
+
+function processExcelFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+      const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      
+      const parsed = rows.map((row, idx) => {
+        if (!row || row.length < 3) return null;
+        return smartParseRow(row);
+      }).filter(Boolean);
+
+      if (parsed.length === 0) throw new Error('No valid questions found in sheet.');
+      loadQuestions(parsed, file.name);
+      showStatus('excelStatus', 'ok', `Loaded ${parsed.length} questions from "${file.name}".`);
+    } catch(err) {
+      showStatus('excelStatus', 'err', 'Error: ' + err.message);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// ── Text Parsing Logic ────────────────────────────────────────────────────────
+function cleanQuestion(q) {
+  // Strips "1. ", "५०. ", "Q1: ", "(5) ", "10) ", etc.
+  // Supports English (0-9) and Nepali (०-९) digits
+  return q.replace(/^([Qq]?[0-9\u0966-\u096F]+|[(][0-9\u0966-\u096F]+[)])[:.\s)]+\s*/u, '').trim();
+}
+
+
+
+function smartParseRow(cells) {
+  // Expected: Question, OptA, OptB, OptC, OptD, Correct
+  if (cells.length < 3) return null;
+  
+  const question = cleanQuestion(String(cells[0]));
+  let options = [];
+  let correctIdx = -1;
+  
+  // Collect options - stop if we hit an empty cell or the end
+  let i = 1;
+  while (i < cells.length - 1 && i <= 5) {
+    if (cells[i]) options.push(String(cells[i]).trim());
+    i++;
+  }
+  
+  // Last cell is correct answer
+  const correctVal = String(cells[cells.length - 1] || cells[options.length + 1] || '').trim();
+  
+  if (options.length < 2) return null;
+
+  // Try to determine correct index
+  const labelIdx = ['A','B','C','D','E','F'].indexOf(correctVal.toUpperCase());
+  if (labelIdx !== -1 && labelIdx < options.length) {
+    correctIdx = labelIdx;
+  } else if (!isNaN(correctVal) && correctVal !== '' && parseInt(correctVal) < options.length) {
+    correctIdx = parseInt(correctVal);
+  } else {
+    // Exact text match
+    correctIdx = options.findIndex(opt => opt.toLowerCase() === correctVal.toLowerCase());
+  }
+
+  if (correctIdx === -1) correctIdx = 0; // default
+
+  return { question, options, correct: correctIdx };
+}
+
+function parseTextInput() {
+  const raw = document.getElementById('textInput').value.trim();
+  if (!raw) { showStatus('textStatus', 'err', 'Nothing to parse.'); return; }
+
+  try {
+    let questions = [];
+    
+    // Attempt line-by-line parsing for one-question-per-line format (Tab or Multiple Spaces)
+    const rawLines = raw.split(/\n/).map(l => l.trim()).filter(l => l);
+    rawLines.forEach(line => {
+      let parts = [];
+      if (line.includes('\t')) {
+        parts = line.split('\t').map(p => p.trim()).filter(p => p);
+      } else if (/\s{2,}/.test(line)) {
+        parts = line.split(/\s{2,}/).map(p => p.trim()).filter(p => p);
+      } else if (line.includes(',')) {
+        parts = line.split(',').map(p => p.trim()).filter(p => p);
+      }
+
+      if (parts.length >= 3) {
+        const p = smartParseRow(parts);
+        if (p) questions.push(p);
+      }
+    });
+
+    // Fallback: If no questions found as one-liners, use the block-based parser
+    if (questions.length === 0) {
+      const blocks = raw.split(/\n\s*\n/).filter(b => b.trim());
+      blocks.forEach(block => {
+        const blines = block.split('\n').map(l => l.trim()).filter(l => l);
+        if (blines.length < 2) return;
+
+        const qText = cleanQuestion(blines[0]);
+        const options = [];
+        let correct = -1;
+        
+        blines.slice(1).forEach((bl) => {
+          let text = bl;
+          let isCorrect = false;
+          if (text.startsWith('*')) { isCorrect = true; text = text.slice(1).trim(); }
+          
+          if (text.toLowerCase().startsWith('correct:')) {
+            const val = text.split(':')[1].trim();
+            const idx = ['A','B','C','D','E'].indexOf(val.toUpperCase());
+            if (idx !== -1) correct = idx;
+            return;
+          }
+
+          text = text.replace(/^[A-Fa-f][).]\s*/, '').trim();
+          if (text) {
+            if (isCorrect) correct = options.length;
+            options.push(text);
+          }
+        });
+        
+        if (options.length >= 2) {
+          if (correct === -1) correct = 0;
+          questions.push({ question: qText, options, correct });
+        }
+      });
+    }
+
+    if (questions.length === 0) throw new Error('No valid questions found.');
+    loadQuestions(questions, 'Text input');
+    showStatus('textStatus', 'ok', `Parsed ${questions.length} questions successfully.`);
+  } catch(err) {
+    showStatus('textStatus', 'err', 'Error: ' + err.message);
+  }
+}
+
+
+
+function showStatus(id, type, msg) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.className = 'status-msg ' + type;
+    el.textContent = msg;
+  }
+}
+
+function loadQuestions(data, source) {
+  questionBank = data;
+  document.getElementById('subjectTag').textContent = source + ' — ' + data.length + ' questions';
+  document.getElementById('totalChip').textContent = data.length + (currentLang === 'ne' ? ' प्रश्नहरू लोड गरियो' : ' questions loaded');
+  document.getElementById('startBtn').disabled = false;
+  document.getElementById('startDesc').textContent =
+    `${data.length} ` + (currentLang === 'ne' ? 'प्रश्नहरू लोड गरियो। राउन्ड चयन गर्नुहोस् र सुरु गर्नुहोस्।' : 'questions loaded. Select round size and press Start.');
+
+  // Visual feedback for the text load button if applicable
+  const loadBtn = document.getElementById('loadTextBtn');
+  if (loadBtn && source === 'Text input') {
+    const originalText = loadBtn.textContent;
+    loadBtn.innerHTML = '✓ ' + (currentLang === 'ne' ? 'लोड भयो' : 'Loaded');
+    loadBtn.classList.add('btn-success');
+    setTimeout(() => {
+      loadBtn.innerHTML = originalText;
+      loadBtn.classList.remove('btn-success');
+      updateUI(); // Restore i18n label
+    }, 2000);
+  }
+
+  // Scroll to focus on the quiz start section
+  setTimeout(() => {
+    document.getElementById('screen-start').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+
+// ── Quiz Logic ────────────────────────────────────────────────────────────────
+document.getElementById('numQSelect').addEventListener('change', function() {
+  roundSize = this.value === 'all' ? 9999 : parseInt(this.value);
+});
+document.getElementById('timerSelect').addEventListener('change', function() {
+  timerLimit = parseInt(this.value);
+});
+
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i>0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function startQuiz() {
+  if (questionBank.length === 0) return;
+  const n = Math.min(roundSize, questionBank.length);
+  activeQuestions = shuffle(questionBank).slice(0, n);
+  currentIndex = 0;
+  userAnswers = [];
+  score = 0;
+  answered = false;
+
+  document.getElementById('screen-start').style.display = 'none';
+  document.getElementById('screen-result').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  document.getElementById('reviewSection').style.display = 'none';
+
+  buildDots();
+  renderQuestion();
+}
+
+function buildDots() {
+  const el = document.getElementById('qDots');
+  el.innerHTML = '';
+  activeQuestions.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'q-dot' + (i === 0 ? ' active' : '');
+    d.textContent = i+1;
+    d.id = 'dot-' + i;
+    el.appendChild(d);
+  });
+}
+
+function renderQuestion() {
+  clearInterval(timerInterval);
+  answered = false;
+
+  const q = activeQuestions[currentIndex];
+  const total = activeQuestions.length;
+  const lang = i18nData[currentLang];
+
+  document.getElementById('questionText').textContent = q.question;
+
+  document.getElementById('progressLabel').textContent = lang.question_n_of.replace('{n}', currentIndex+1).replace('{total}', total);
+  document.getElementById('progressFill').style.width = (currentIndex / total * 100) + '%';
+
+  const card = document.getElementById('questionCard');
+  card.style.animation = 'none'; card.offsetHeight; card.style.animation = '';
+
+  document.querySelectorAll('.q-dot').forEach((d, i) => {
+    d.classList.remove('active');
+    if (i === currentIndex) d.classList.add('active');
+  });
+
+  const list = document.getElementById('optionsList');
+  list.innerHTML = '';
+  const letters = ['A','B','C','D','E','F'];
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<div class="option-letter">${letters[i]}</div><div class="option-text">${opt}</div>`;
+    btn.onclick = () => selectAnswer(i);
+    list.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedbackStrip');
+  fb.className = 'feedback-strip';
+  fb.textContent = '';
+
+  const timerBar = document.querySelector('.timer-bar');
+  if (timerLimit > 0) {
+    timerBar.style.display = 'block';
+    timeLeft = timerLimit;
+    updateTimer(timerLimit);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      updateTimer(timeLeft);
+      if (timeLeft <= 0) { clearInterval(timerInterval); if (!answered) autoTimeout(); }
+    }, 1000);
+  } else {
+    timerBar.style.display = 'none';
+  }
+
+  qStartTime = Date.now();
+
+  // Trigger MathJax rendering
+  if (window.MathJax && typeof MathJax.typeset === 'function') {
+    MathJax.typeset();
+  }
+}
+
+
+
+function updateTimer(t) {
+  const fill = document.getElementById('timerFill');
+  fill.style.width = (t/timerLimit*100) + '%';
+  fill.className = 'timer-fill' + (t <= 5 ? ' danger' : t <= (timerLimit/2) ? ' warn' : '');
+}
+
+
+function autoTimeout() {
+  answered = true;
+  const q = activeQuestions[currentIndex];
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach((b, i) => { b.disabled = true; if (i === q.correct) b.classList.add('revealed'); });
+  userAnswers.push({ selected: -1, correct: q.correct, time: timerLimit });
+  markDot(currentIndex, false);
+
+  const fb = document.getElementById('feedbackStrip');
+  fb.className = 'feedback-strip timeout';
+  fb.textContent = i18nData[currentLang].time_up + q.options[q.correct];
+  scheduleNext();
+}
+
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const timeTaken = Math.round((Date.now() - qStartTime) / 1000);
+  clearInterval(timerInterval);
+
+  const q = activeQuestions[currentIndex];
+  const isCorrect = idx === q.correct;
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.correct) b.classList.add('correct-ans');
+    if (i === idx && !isCorrect) b.classList.add('wrong-ans');
+  });
+
+  if (isCorrect) score++;
+  userAnswers.push({ selected: idx, correct: q.correct, time: timeTaken });
+  markDot(currentIndex, isCorrect);
+
+
+  const fb = document.getElementById('feedbackStrip');
+  if (isCorrect) {
+    fb.className = 'feedback-strip correct';
+    fb.textContent = currentLang === 'ne' ? 'सही उत्तर!' : 'Correct!';
+  } else {
+    fb.className = 'feedback-strip wrong';
+    fb.textContent = (currentLang === 'ne' ? 'गलत। सही उत्तर: ' : 'Incorrect. Correct answer: ') + q.options[q.correct];
+  }
+  scheduleNext();
+}
+
+function markDot(i, ok) {
+  const d = document.getElementById('dot-'+i);
+  if (d) { d.classList.remove('active'); d.classList.add(ok ? 'correct' : 'wrong'); }
+}
+
+function scheduleNext() {
+  setTimeout(() => {
+    currentIndex++;
+    if (currentIndex < activeQuestions.length) renderQuestion();
+    else showResult();
+  }, 1600);
+}
+
+function showResult() {
+  clearInterval(timerInterval);
+  document.getElementById('screen-quiz').style.display = 'none';
+  document.getElementById('screen-result').style.display = 'block';
+  
+  const lang = i18nData[currentLang];
+  const total = activeQuestions.length;
+  const pct = Math.round(score/total*100);
+
+  document.getElementById('scorePct').textContent = pct + '%';
+  document.getElementById('sCorrect').textContent = score;
+  document.getElementById('sWrong').textContent = total - score;
+  document.getElementById('sTotal').textContent = total;
+
+  const circumference = 377;
+  const offset = circumference - (pct/100)*circumference;
+  const circle = document.getElementById('scoreCircle');
+  circle.style.stroke = pct>=80 ? 'var(--green)' : pct>=50 ? 'var(--amber)' : 'var(--red)';
+  setTimeout(() => { circle.style.strokeDashoffset = offset; }, 100);
+}
+
+function showReview() {
+  const section = document.getElementById('reviewSection');
+  const container = document.getElementById('reviewCards');
+  section.style.display = 'block';
+  container.innerHTML = '';
+  const letters = ['A','B','C','D','E','F'];
+  const lang = i18nData[currentLang];
+
+  activeQuestions.forEach((q, i) => {
+    const ua = userAnswers[i];
+    const isCorrect = ua && ua.selected === q.correct;
+    const timedOut = ua && ua.selected === -1;
+
+    const card = document.createElement('div');
+    card.className = 'review-card ' + (isCorrect ? 'r-correct' : 'r-wrong');
+
+    let ansHTML = '';
+    const timeTakenStr = lang.time_taken.replace('{s}', ua.time || 0);
+
+    if (timedOut) {
+      ansHTML = `<div class="review-ans hint">${lang.correct}: ${letters[q.correct]}. ${q.options[q.correct]}</div>
+                 <div class="review-ans your-bad">${currentLang === 'ne' ? 'समय सकियो' : 'Timed out'}</div>`;
+    } else if (!isCorrect) {
+      ansHTML = `<div class="review-ans your-bad">${currentLang === 'ne' ? 'तपाईको उत्तर' : 'Your answer'}: ${letters[ua.selected]}. ${q.options[ua.selected]}</div>
+                 <div class="review-ans hint">${lang.correct}: ${letters[q.correct]}. ${q.options[q.correct]}</div>`;
+    } else {
+      ansHTML = `<div class="review-ans your-ok">${lang.correct}: ${letters[ua.selected]}. ${q.options[ua.selected]}</div>`;
+    }
+
+    card.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:7px;">
+        <div class="review-q-num">${isCorrect ? lang.correct : lang.wrong} — Q${i+1}</div>
+        <div style="font-size:11px; color:var(--text-muted); font-weight:600;">${timeTakenStr}</div>
+      </div>
+      <div class="review-question">${q.question}</div>
+      <div>${ansHTML}</div>
+    `;
+    container.appendChild(card);
+  });
+
+
+  // Trigger MathJax rendering
+  if (window.MathJax && typeof MathJax.typeset === 'function') {
+    MathJax.typeset();
+  }
+  section.scrollIntoView({ behavior: 'smooth' });
+}
+
+
+function backToStart() {
+  document.getElementById('screen-result').style.display = 'none';
+  document.getElementById('screen-start').style.display = 'block';
+  document.getElementById('reviewSection').style.display = 'none';
+}
+
+if (typeof XLSX === 'undefined') {
+
+  const script = document.createElement('script');
+  script.src = "https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js";
+  document.head.appendChild(script);
+}
+updateUI(); // Init labels
+
+</script>
+</body>
+</html>
