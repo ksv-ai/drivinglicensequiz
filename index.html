@@ -271,6 +271,11 @@
       ne: { start_title: "परीक्षा सिमुलेटर", start_desc: "२५ प्रश्न, ३० मिनेट, ६०% उत्तीर्ण।", cat_a: "वर्ग ए/के (बाइक)", cat_b: "वर्ग बी (कार)", start_btn: "सुरु गर्नुहोस्", retry: "नयाँ परीक्षा", review: "उत्तरहरू", pass: "उत्तीर्ण", fail: "अनुत्तीर्ण", q_progress: "प्रश्न {n} / २५", time_taken: "समय", accuracy: "शुद्धता", total_marks: "कुल अंक", your_choice: "तपाईंको उत्तर", correct_ans: "सही उत्तर" }
     };
 
+    function toNepaliNums(num) {
+      const nepali = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+      return num.toString().split('').map(d => nepali[parseInt(d)] || d).join('');
+    }
+
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
@@ -292,7 +297,14 @@
     function updateUI() {
       const t = i18n[currentLang];
       document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.getAttribute('data-i18n'); if (t[k]) el.textContent = t[k]; });
-      if (activeQuestions.length > 0) document.getElementById('exam-progress').textContent = t.q_progress.replace('{n}', currentIndex + 1);
+      if (activeQuestions.length > 0) {
+        let qText = t.q_progress.replace('{n}', currentIndex + 1);
+        if (currentLang === 'ne') {
+          qText = qText.replace((currentIndex + 1).toString(), toNepaliNums(currentIndex + 1));
+          qText = qText.replace('25', toNepaliNums(25));
+        }
+        document.getElementById('exam-progress').textContent = qText;
+      }
     }
 
     function selectVehicle(type) {
@@ -320,7 +332,9 @@
         timeLeft--;
         if (timeLeft <= 0) { clearInterval(timerInterval); showResult(); return; }
         const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
-        document.getElementById('timer-val').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+        let timeStr = `${m}:${s.toString().padStart(2, '0')}`;
+        if (currentLang === 'ne') timeStr = timeStr.split('').map(c => (c >= '0' && c <= '9') ? toNepaliNums(c) : c).join('');
+        document.getElementById('timer-val').textContent = timeStr;
       }, 1000);
       renderQuestion();
     }
@@ -328,7 +342,12 @@
     function renderQuestion() {
       const q = activeQuestions[currentIndex], t = i18n[currentLang];
       qStartTime = Date.now();
-      document.getElementById('exam-progress').textContent = t.q_progress.replace('{n}', currentIndex + 1);
+      let qText = t.q_progress.replace('{n}', currentIndex + 1);
+      if (currentLang === 'ne') {
+        qText = qText.replace((currentIndex + 1).toString(), toNepaliNums(currentIndex + 1));
+        qText = qText.replace('25', toNepaliNums(25));
+      }
+      document.getElementById('exam-progress').textContent = qText;
       document.getElementById('exam-progress-fill').style.width = `${(currentIndex/25)*100}%`;
       const imgCont = document.getElementById('q-media');
       imgCont.innerHTML = q.imageUrl ? `<img src="${q.imageUrl}" class="q-img-c">` : '';
@@ -359,10 +378,12 @@
       const b = document.getElementById('res-badge');
       b.textContent = isPassed ? t.pass : t.fail;
       b.className = 'r-badge ' + (isPassed ? 'b-pass' : 'b-fail');
-      document.getElementById('res-score-box').textContent = score;
-      document.getElementById('stat-time').textContent = `${Math.floor(totalTime/60)}:${(totalTime%60).toString().padStart(2, '0')}`;
-      document.getElementById('stat-accuracy').textContent = `${score}%`;
-      document.getElementById('stat-marks').textContent = `${score}/100`;
+      document.getElementById('res-score-box').textContent = currentLang === 'ne' ? toNepaliNums(score) : score;
+      let timeStr = `${Math.floor(totalTime/60)}:${(totalTime%60).toString().padStart(2, '0')}`;
+      if (currentLang === 'ne') timeStr = timeStr.split('').map(c => (c >= '0' && c <= '9') ? toNepaliNums(c) : c).join('');
+      document.getElementById('stat-time').textContent = timeStr;
+      document.getElementById('stat-accuracy').textContent = (currentLang === 'ne' ? toNepaliNums(score) : score) + '%';
+      document.getElementById('stat-marks').textContent = (currentLang === 'ne' ? toNepaliNums(score) : score) + (currentLang === 'ne' ? '/१००' : '/100');
     }
 
     function showReview() {
@@ -375,8 +396,9 @@
         const opts = q['options_' + currentLang] || q.options_ne;
         const box = document.createElement('div');
         box.className = 'rev-item ' + (isCorrect ? 'c-m' : 'w-m');
+        const timeDisplay = currentLang === 'ne' ? toNepaliNums(ua ? ua.time : 0) + 's' : (ua ? ua.time : 0) + 's';
         box.innerHTML = `
-          <div class="rev-time">${ua ? ua.time : 0}s</div>
+          <div class="rev-time">${timeDisplay}</div>
           <div style="font-weight:700; font-size:0.85rem; margin-bottom:5px; padding-right:40px;">Q${i+1}. ${q.question[currentLang] || q.question.ne}</div>
           ${q.imageUrl ? `<img src="${q.imageUrl}" style="max-width:80px; margin:5px 0;">` : ''}
           <div style="font-size:0.8rem; font-weight:600; color:${isCorrect ? 'var(--green)' : 'var(--red)'}">${ua ? letters[ua.selected] : 'N/A'}. ${ua ? opts[ua.selected] : ''}</div>
